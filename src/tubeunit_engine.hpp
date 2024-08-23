@@ -205,10 +205,22 @@ namespace Sapphire
         void process(float& leftOutput, float& rightOutput, float leftInput, float rightInput)
         {
             if (sampleRate <= 0.0f)
+#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::logic_error("Invalid sample rate in TubeUnitEngine");
+#else
+			{
+				return;
+			}
+#endif
 
             if (rootFrequency <= 0.0f)
+#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::logic_error("Invalid root frequency in TubeUnitEngine");
+#else
+			{
+				return;
+			}
+#endif
 
             // A tube that is open on one end and closed on the other end has a negative
             // reflection at the open end and a positive reflection at the closed end.
@@ -225,7 +237,13 @@ namespace Sapphire
             std::size_t largerHalf = nsamples - smallerHalf;
 
             if (largerHalf < windowSteps + 1)
+#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::logic_error("outbound delay line is not large enough for interpolation.");
+#else
+			{
+				return;
+			}
+#endif
 
             outbound.setLength(largerHalf + windowSteps);
             inbound.setLength(smallerHalf);

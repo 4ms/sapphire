@@ -213,7 +213,11 @@ namespace Sapphire
             static int validateTankIndex(int tankIndex)
             {
                 if (tankIndex < 0 || tankIndex >= NDELAYS)
+#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                     throw std::out_of_range(std::string("tankIndex is invalid: ") + std::to_string(tankIndex));
+#else
+					return 0;
+#endif
                 return tankIndex;
             }
 

@@ -41,7 +41,12 @@ namespace Sapphire
                 p.pos[3] = 0;
                 break;
             default:
+#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::invalid_argument(std::string("Invalid particle index") + std::to_string(particleIndex) + " passed into Sapphire::Nucleus::MinimumEnergyParticle()");
+#else
+				printf("Invalid particle index\n");
+#endif
+				break;
             }
             return p;
         }

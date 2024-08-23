@@ -304,8 +304,13 @@ namespace Sapphire
 
         static double VerifyPositive(double x)
         {
-            if (x <= 0.0)
+            if (x <= 0.0) {
+#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::range_error("AGC coefficient must be positive.");
+#else
+				return std::numeric_limits<double>::min();
+#endif
+			}
             return x;
         }
 
@@ -392,16 +397,26 @@ namespace Sapphire
         item_t readForward(std::size_t offset) const
         {
             // Access an item at an integer offset toward the future from the back of the delay line.
-            if (offset >= bufsize)
+            if (offset >= bufsize) {
+#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::range_error("Delay line offset is out of bounds.");
+#else
+				return{};
+#endif
+			}
             return buffer.at((back + offset) % bufsize);
         }
 
         item_t readBackward(std::size_t offset) const
         {
             // Access an item at an integer offset into the past from the front of the delay line.
-            if (offset >= bufsize)
+            if (offset >= bufsize) {
+#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::range_error("Delay line offset is out of bounds.");
+#else
+				return{};
+#endif
+			}
             return buffer.at(((bufsize + front) - (offset + 1)) % bufsize);
         }
 
@@ -584,14 +599,22 @@ namespace Sapphire
         {
             std::size_t index = static_cast<std::size_t>(static_cast<int>(steps) + position);
             if (index >= nsamples)
+#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::range_error("Interpolator write position is out of bounds.");
+#else
+			return;
+#endif
             buffer[index] = value;
         }
 
         item_t read(float position) const
         {
             if (position < -1.0f || position > +1.0f)
+#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::range_error("Interpolator read position is out of bounds.");
+#else
+			return{};
+#endif
 
             const int s = static_cast<int>(steps);
             item_t sum {};

@@ -296,8 +296,13 @@ namespace Sapphire
 
             // Crash immediately to assist debugging if the module exists but is not a Sapphire module.
             // This means I likely started coding a new module but forgot to make it derive from SapphireModule.
-            if (sapphireModule == nullptr)
+            if (sapphireModule == nullptr) {
+#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::logic_error("Invalid usage of a non-Sapphire module.");
+#else
+			    return nullptr;
+#endif
+			}
 
             return sapphireModule;
         }

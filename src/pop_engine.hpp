@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <ctime>
+#include <random>
 
 namespace Sapphire
 {

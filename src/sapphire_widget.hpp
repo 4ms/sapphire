@@ -687,14 +687,14 @@ namespace Sapphire
 
         void addSapphireParam(ParamWidget* param, const std::string& label)
         {
-            addParam(param);
             position(param, label);
+            addParam(param);
         }
 
         void addSapphireInput(PortWidget* input, const std::string& label)
         {
-            addInput(input);
             position(input, label);
+            addInput(input);
         }
 
         template <typename port_t = SapphirePort>
@@ -707,8 +707,8 @@ namespace Sapphire
 
         void addSapphireOutput(PortWidget* output, const std::string& label)
         {
-            addOutput(output);
             position(output, label);
+            addOutput(output);
         }
 
         template <typename port_t = SapphirePort>

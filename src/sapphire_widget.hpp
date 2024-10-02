@@ -224,14 +224,14 @@ namespace Sapphire
 
         void addSapphireParam(ParamWidget* param, const std::string& label)
         {
-            addParam(param);
             position(param, label);
+            addParam(param);
         }
 
         void addSapphireInput(PortWidget* input, const std::string& label)
         {
-            addInput(input);
             position(input, label);
+            addInput(input);
         }
 
         void addSapphireInput(int inputId, const std::string& label)
@@ -242,8 +242,8 @@ namespace Sapphire
 
         void addSapphireOutput(PortWidget* output, const std::string& label)
         {
-            addOutput(output);
             position(output, label);
+            addOutput(output);
         }
 
         SapphirePort* addSapphireOutput(int outputId, const std::string& label)

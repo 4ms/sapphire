@@ -622,7 +622,9 @@ namespace Sapphire
             // If parent is a Menu, make corners sharp
             auto parentMenu = dynamic_cast<const Menu*>(getParent());
             int flags = parentMenu ? BND_CORNER_ALL : BND_CORNER_NONE;
+#ifndef METAMODULE
             bndSlider(args.vg, 0.0, 0.0, box.size.x, box.size.y, flags, state, progress, text.c_str(), nullptr);
+#endif
         }
     };
 

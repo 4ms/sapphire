@@ -377,6 +377,7 @@ namespace Sapphire
 
         void draw(const DrawArgs& args) override
         {
+#ifndef METAMODULE
             // [Don Cross] Copied and modified from: Rack/src/ui/Slider.cpp
 
             BNDwidgetState state = BND_DEFAULT;
@@ -399,7 +400,6 @@ namespace Sapphire
             // If parent is a Menu, make corners sharp
             auto parentMenu = dynamic_cast<const ui::Menu*>(getParent());
             int flags = parentMenu ? BND_CORNER_ALL : BND_CORNER_NONE;
-#ifndef METAMODULE
             bndSlider(args.vg, 0.0, 0.0, box.size.x, box.size.y, flags, state, progress, text.c_str(), NULL);
 #endif
         }
@@ -1103,11 +1103,11 @@ namespace Sapphire
                 menu->addChild(createBoolMenuItem(
                     "Flip voltage polarity",
                     "",
-                    [=]()
+                    [this]()
                     {
                         return module->getVoltageFlipEnabled(outputId);
                     },
-                    [=](bool state)
+                    [this](bool state)
                     {
                         module->setVoltageFlipEnabled(outputId, state);
                     }

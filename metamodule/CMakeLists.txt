@@ -48,7 +48,6 @@ target_sources(Sapphire
     ${SOURCE_DIR}/src/sapphire_globals.cpp
     ${SOURCE_DIR}/src/sapphire_panel.cpp
 
-    firmware-stubs.cc
     plugin.cpp 
 )
 

@@ -274,8 +274,8 @@ namespace Sapphire
                 menu->addChild(createIndexSubmenuItem(
                     "Model sample rate",
                     labels,
-                    [=]() { return selectedIndex; },
-                    [=](std::size_t index) { selectedIndex = index; }
+                    [this]() { return selectedIndex; },
+                    [this](std::size_t index) { selectedIndex = index; }
                 ));
             }
         };

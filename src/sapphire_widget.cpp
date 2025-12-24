@@ -676,7 +676,11 @@ namespace Sapphire
     }
 
     // Create ModulePresetPathItems for each patch in a directory.
+#ifdef METAMODULE
+    void AppendFactoryPresets(ui::Menu *menu, ModuleWidget* moduleWidget, std::string presetDir)
+#else
     void AppendFactoryPresets(ui::Menu *menu, WeakPtr<ModuleWidget> moduleWidget, std::string presetDir)
+#endif
     {
         if (system::isDirectory(presetDir))
         {

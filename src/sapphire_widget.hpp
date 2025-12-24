@@ -619,7 +619,11 @@ namespace Sapphire
         explicit SapphireWidget(const std::string& moduleCode, const std::string& panelSvgFileName)
             : modcode(moduleCode)
         {
+#if defined(METAMODULE)
+            setPanel(createPanel(panelSvgFileName));
+#else
             setPanel(MakeSapphirePanel(panelSvgFileName));
+#endif
         }
 
         bool isNeonModeActive() const

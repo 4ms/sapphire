@@ -306,8 +306,8 @@ namespace Sapphire
                 menu->addChild(createIndexSubmenuItem(
                     "Model sample rate",
                     labels,
-                    [=]() { return selectedIndex; },
-                    [=](std::size_t index)
+                    [this]() { return selectedIndex; },
+                    [this](std::size_t index)
                     {
                         if (index != selectedIndex)
                             InvokeAction(new ChangeModelSampleRateAction(selectedIndex, index, sampleRateOptions.at(index)));

@@ -461,8 +461,8 @@ namespace Sapphire
                         menu->addChild(createCheckMenuItem(
                             labels[i],
                             "",
-                            [=](){ return getter() == i; },
-                            [=](){ setter(i); },
+                            [=,this](){ return getter() == i; },
+                            [=,this](){ setter(i); },
                             !module->circuit.isModeEnabled(i),
                             alwaysConsume)
                         );

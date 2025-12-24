@@ -533,11 +533,11 @@ namespace Sapphire
         return createBoolMenuItem(
             "Limiter warning light",
             "",
-            [=]()
+            [this]()
             {
                 return enableLimiterWarning;
             },
-            [=](bool value)
+            [this](bool value)
             {
                 if (value != enableLimiterWarning)
                     InvokeAction(new BoolToggleAction(enableLimiterWarning, "limiter warning light"));

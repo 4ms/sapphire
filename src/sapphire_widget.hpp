@@ -130,11 +130,11 @@ namespace Sapphire
                 menu->addChild(createBoolMenuItem(
                     "Low sensitivity",
                     "",
-                    [=]() -> bool       // getter
+                    [this]() -> bool       // getter
                     {
                         return *lowSensitivityMode;
                     },
-                    [=](bool state)     // setter
+                    [this](bool state)     // setter
                     {
                         if (state != *lowSensitivityMode)
                             InvokeAction(new BoolToggleAction(*lowSensitivityMode, "attenuverter sensitivity"));
@@ -228,7 +228,7 @@ namespace Sapphire
                 menu->addChild(createMenuItem(
                     "Snap to V/OCT",
                     "",
-                    [=]()
+                    [this]()
                     {
                         InvokeAction(new SnapVoctAction(atten, this, voctSetting));
                     }

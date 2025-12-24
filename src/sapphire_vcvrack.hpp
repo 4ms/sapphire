@@ -1654,8 +1654,8 @@ namespace Sapphire
             menu->addChild(createIndexSubmenuItem(
                 menuName + " input port mode",
                 { "Gate", "Trigger" },
-                [=]() { return static_cast<std::size_t>(mode); },
-                [=](size_t value)
+                [this]() { return static_cast<std::size_t>(mode); },
+                [this](size_t value)
                 {
                     const ToggleGroupMode newMode = static_cast<ToggleGroupMode>(value);
                     if (newMode != mode)
@@ -1755,11 +1755,11 @@ namespace Sapphire
                 menu->addChild(createBoolMenuItem(
                     "Flip voltage polarity",
                     "",
-                    [=]()
+                    [this]()
                     {
                         return module->getVoltageFlipEnabled(outputId);
                     },
-                    [=](bool state)
+                    [this](bool state)
                     {
                         if (state != module->getVoltageFlipEnabled(outputId))
                             InvokeAction(new VoltageFlipAction(module, outputId));

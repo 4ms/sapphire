@@ -47,6 +47,7 @@ target_sources(Sapphire
 
     ${SOURCE_DIR}/src/sapphire_globals.cpp
     ${SOURCE_DIR}/src/sapphire_panel.cpp
+    ${SOURCE_DIR}/src/sapphire_widget.cpp
 
     plugin.cpp 
 )

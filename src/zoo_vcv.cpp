@@ -256,12 +256,12 @@ namespace Sapphire
             return createSubmenuItem(
                 caption,
                 formula[varIndex],
-                [=](Menu* menu)
+                [=, this](Menu* menu)
                 {
                     auto editField = new MenuTextField;
                     editField->box.size.x = 250;
                     editField->setText(formula[varIndex]);
-                    editField->commitHandler = [=](std::string text)
+                    editField->commitHandler = [=, this](std::string text)
                     {
                         setInfixFormula(varIndex, text);
                     };
@@ -279,12 +279,12 @@ namespace Sapphire
             return createSubmenuItem(
                 caption,
                 text,
-                [=](Menu* menu)
+                [=, this](Menu* menu)
                 {
                     auto editField = new MenuTextField;
                     editField->box.size.x = 250;
                     editField->setText(text);
-                    editField->commitHandler = [=](std::string text)
+                    editField->commitHandler = [=, this](std::string text)
                     {
                         double x;
                         int n = sscanf(text.c_str(), "%lg", &x);

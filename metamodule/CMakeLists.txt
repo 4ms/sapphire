@@ -34,6 +34,7 @@ target_sources(Sapphire
     ${SOURCE_DIR}/src/glee_vcv.cpp
     ${SOURCE_DIR}/src/hiss_vcv.cpp
     ${SOURCE_DIR}/src/lark_vcv.cpp
+    ${SOURCE_DIR}/src/zoo_vcv.cpp
     # ${SOURCE_DIR}/src/moots_vcv.cpp
     # ${SOURCE_DIR}/src/nucleus_vcv.cpp
     # ${SOURCE_DIR}/src/pivot_vcv.cpp

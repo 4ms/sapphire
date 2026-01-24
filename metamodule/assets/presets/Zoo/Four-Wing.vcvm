@@ -1,0 +1,55 @@
+{
+  "plugin": "CosineKitty-Sapphire",
+  "model": "Zoo",
+  "version": "2.6.001",
+  "data": {
+    "chaosMode": 0,
+    "compressorLimit": 0.0,
+    "xVoltageScale": 1.0,
+    "yVoltageScale": 1.0,
+    "zVoltageScale": 1.0,
+    "oversampling": 1,
+    "memory": [
+      {
+        "x": -0.379040174134008,
+        "y": 0.06205728986408185,
+        "z": 0.029381014368725443
+      }
+    ],
+    "program": {
+      "vx": "a*x+y*z",
+      "vy": "b*x+c*y-x*z",
+      "vz": "-z-x*y"
+    },
+    "dilate": 2.0,
+    "speedFactor": 4.0,
+    "translate": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "morph": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "params": [
+      {
+        "center": 0.1,
+        "spread": 0.01
+      },
+      {
+        "center": 0.01,
+        "spread": 0.009
+      },
+      {
+        "center": -0.4,
+        "spread": 0.05
+      },
+      {
+        "center": 0.0,
+        "spread": 1.0
+      }
+    ]
+  }
+}

@@ -47,6 +47,9 @@ target_sources(Sapphire
     # ${SOURCE_DIR}/src/tricorder_vcv.cpp
     # ${SOURCE_DIR}/src/tubeunit_vcv.cpp
 
+    ${SOURCE_DIR}/src/sapphire_calcparser.cpp
+    ${SOURCE_DIR}/src/sapphire_prog_chaos.cpp
+
     ${SOURCE_DIR}/src/sapphire_globals.cpp
     ${SOURCE_DIR}/src/sapphire_panel.cpp
     ${SOURCE_DIR}/src/sapphire_widget.cpp

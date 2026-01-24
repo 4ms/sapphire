@@ -640,6 +640,7 @@ namespace Sapphire
         {
             if (SapphireModule* sm = getSapphireModule())
             {
+#if !defined(METAMODULE)
                 menu->addChild(new MenuSeparator);
 
                 if (sm->includeNeonModeMenuItem)
@@ -679,6 +680,7 @@ namespace Sapphire
                         [this]{ addChaopsExpander(); }
                     ));
                 }
+#endif
             }
         }
 

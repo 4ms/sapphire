@@ -233,6 +233,11 @@ namespace Sapphire
 
     ModuleWidget* FindWidgetForId(int64_t moduleId)
     {
+#if defined(METAMODULE)
+        if (APP->scene->rack->getModuleContainer() == nullptr);
+			return nullptr;
+#endif
+
         for (Widget* w : APP->scene->rack->getModuleContainer()->children)
         {
             auto mw = dynamic_cast<ModuleWidget*>(w);

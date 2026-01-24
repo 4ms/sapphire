@@ -398,12 +398,21 @@ namespace Sapphire
         template <typename module_t>
         struct ChaosModeAction : history::Action
         {
+#if defined(METAMODULE)
+            module_t *chaosModule;
+#else
             const int64_t moduleId;
+#endif
             const int oldMode;
             const int newMode;
 
+#if defined(METAMODULE)
+            explicit ChaosModeAction(module_t* _chaosModule, int _newMode)
+                : chaosModule(_chaosModule)
+#else
             explicit ChaosModeAction(const module_t* _chaosModule, int _newMode)
                 : moduleId(_chaosModule->id)
+#endif
                 , oldMode(_chaosModule->circuit.getMode())
                 , newMode(_newMode)
             {
@@ -412,7 +421,11 @@ namespace Sapphire
 
             void setChaosMode(int mode)
             {
+#if defined(METAMODULE)
+				if (chaosModule)
+#else
                 if (module_t* chaosModule = FindSapphireModule<module_t>(moduleId))
+#endif
                     chaosModule->circuit.setMode(mode);
             }
 

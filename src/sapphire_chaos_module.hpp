@@ -32,8 +32,10 @@ namespace Sapphire
             Z_TRANSLATE_PARAM,
 
             // Buttons for inserting Tricorder, Chaops.
+#ifndef METAMODULE
             ADD_TRICORDER_BUTTON_PARAM,
             ADD_CHAOPS_BUTTON_PARAM,
+#endif
 
             PARAMS_LEN
         };
@@ -129,8 +131,10 @@ namespace Sapphire
                 configInput(SPEED_CV_INPUT, "Speed CV");
                 configInput(CHAOS_CV_INPUT, "Chaos CV");
 
+#ifndef METAMODULE
                 configButton(ADD_CHAOPS_BUTTON_PARAM, "Insert Chaops");
                 configButton(ADD_TRICORDER_BUTTON_PARAM, "Insert Tricorder");
+#endif
 
                 initialize();
             }

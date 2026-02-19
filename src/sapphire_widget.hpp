@@ -638,9 +638,9 @@ namespace Sapphire
 
         void appendContextMenu(Menu* menu) override
         {
+#if !defined(METAMODULE)
             if (SapphireModule* sm = getSapphireModule())
             {
-#if !defined(METAMODULE)
                 menu->addChild(new MenuSeparator);
 
                 if (sm->includeNeonModeMenuItem)
@@ -680,8 +680,8 @@ namespace Sapphire
                         [this]{ addChaopsExpander(); }
                     ));
                 }
-#endif
             }
+#endif
         }
 
         void position(Widget* widget, const std::string& label)
@@ -1118,7 +1118,7 @@ namespace Sapphire
 
     SapphireModule* AddExpander(Model* model, ModuleWidget* parentModWidget, ExpanderDirection dir, bool clone);
     ModuleWidget* FindWidgetClosestOnRight(const ModuleWidget* origin, int hpDistanceLimit);
-#ifdef METAMODULE
+#if defined(METAMODULE)
     void AppendFactoryPresets(ui::Menu *menu, ModuleWidget* moduleWidget, std::string presetDir);
 #else
     void AppendFactoryPresets(ui::Menu *menu, WeakPtr<ModuleWidget> moduleWidget, std::string presetDir);

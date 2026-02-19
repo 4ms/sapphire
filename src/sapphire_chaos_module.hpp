@@ -32,7 +32,7 @@ namespace Sapphire
             Z_TRANSLATE_PARAM,
 
             // Buttons for inserting Tricorder, Chaops.
-#ifndef METAMODULE
+#if !defined(METAMODULE)
             ADD_TRICORDER_BUTTON_PARAM,
             ADD_CHAOPS_BUTTON_PARAM,
 #endif
@@ -131,7 +131,7 @@ namespace Sapphire
                 configInput(SPEED_CV_INPUT, "Speed CV");
                 configInput(CHAOS_CV_INPUT, "Chaos CV");
 
-#ifndef METAMODULE
+#if !defined(METAMODULE)
                 configButton(ADD_CHAOPS_BUTTON_PARAM, "Insert Chaops");
                 configButton(ADD_TRICORDER_BUTTON_PARAM, "Insert Tricorder");
 #endif
@@ -672,7 +672,9 @@ namespace Sapphire
                 addSapphireAttenuverter(CHAOS_ATTEN, "chaos_atten");
                 addSapphireInput(SPEED_CV_INPUT, "speed_cv");
                 addSapphireInput(CHAOS_CV_INPUT, "chaos_cv");
+#if !defined(METAMODULE)
                 addInsertTricorderButton(ADD_TRICORDER_BUTTON_PARAM);
+#endif
                 addInsertChaopsButton();
             }
 
@@ -729,12 +731,14 @@ namespace Sapphire
 
             void addInsertChaopsButton()
             {
+#if !defined(METAMODULE)
                 auto button = createParamCentered<VectorInsertButton>(Vec{}, chaosModule, ADD_CHAOPS_BUTTON_PARAM);
                 button->addFrame(Svg::load(asset::plugin(pluginInstance, "res/left_extender_button.svg")));
                 button->parentWidget = this;
                 button->expanderModel = modelSapphireChaops;
                 button->direction = ExpanderDirection::Left;
                 addSapphireParam(button, "chaops_button");
+#endif
             }
         };
     }

@@ -234,7 +234,7 @@ namespace Sapphire
     ModuleWidget* FindWidgetForId(int64_t moduleId)
     {
 #if defined(METAMODULE)
-        if (APP->scene->rack->getModuleContainer() == nullptr);
+        if (APP->scene->rack->getModuleContainer() == nullptr)
 			return nullptr;
 #endif
 
@@ -681,7 +681,7 @@ namespace Sapphire
     }
 
     // Create ModulePresetPathItems for each patch in a directory.
-#ifdef METAMODULE
+#if defined(METAMODULE)
     void AppendFactoryPresets(ui::Menu *menu, ModuleWidget* moduleWidget, std::string presetDir)
 #else
     void AppendFactoryPresets(ui::Menu *menu, WeakPtr<ModuleWidget> moduleWidget, std::string presetDir)

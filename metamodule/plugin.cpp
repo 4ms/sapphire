@@ -1,12 +1,16 @@
 #include "plugin.hpp"
 
-Plugin *pluginInstance;
-
 // Stubs for models that aren't in the MM plugin, but are used in common code
 Model *modelSapphireTricorder = nullptr;
 Model *modelSapphireChaops = nullptr;
 
+#ifdef METAMODULE_BUILTIN
+extern Plugin *pluginInstance;
+__attribute__((visibility("default"))) void init_Sapphire(Plugin *p) {
+#else
+Plugin *pluginInstance;
 __attribute__((visibility("default"))) void init(Plugin *p) {
+#endif
 	pluginInstance = p;
 
 	p->addModel(modelSapphireElastika);
@@ -27,4 +31,7 @@ __attribute__((visibility("default"))) void init(Plugin *p) {
 	// p->addModel(modelSapphireTout);
 	// p->addModel(modelSapphireTricorder);
 	// p->addModel(modelSapphireTubeUnit);
+}
+
+extern "C" void _jp2uc_l() {
 }

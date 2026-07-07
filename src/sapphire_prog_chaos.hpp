@@ -67,14 +67,7 @@ namespace Sapphire
         static double ValidateConstant(double x)
         {
             if (!std::isfinite(x))
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw CalcError("Non-finite constant literal encountered in compiled expression.");
-#else
-			{
-				printf("Non-finite constant literal encountered in compiled expression.\n");
-				return 0;
-			}
-#endif
             return x;
         }
     };
@@ -248,15 +241,7 @@ namespace Sapphire
         {
             const int r = static_cast<int>(reg.size());
             if (r >= MaxRegisterCount)
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw CalcError("Ran out of registers (" + std::to_string(MaxRegisterCount) + " max).");
-#else
-			{
-                printf("Error: Ran out of registers (%d max)\n", MaxRegisterCount);
-				return 0; // what should we return?
-			}
-#endif
-
             reg.push_back(value);
             return r;
         }
@@ -284,14 +269,7 @@ namespace Sapphire
         int validateRegister(int r) const
         {
             if (r < 0 || r >= static_cast<int>(reg.size()))
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw CalcError("Register index is out of range: " + std::to_string(r));
-#else
-			{
-                printf("Error: Register index is out of range: %d\n", r);
-				return 0;
-			}
-#endif
             return r;
         }
 
@@ -362,14 +340,7 @@ namespace Sapphire
         {
             if (index >= 0 && index < ParamCount)
                 return index;
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
-				throw CalcError(std::string("parameter index is out of range: ") + std::to_string(index));
-#else
-			{
-				printf("Error: parameter index is out of range: %d\n", index);
-				return 0;
-			}
-#endif
+            throw CalcError(std::string("parameter index is out of range: ") + std::to_string(index));
         }
 
         void reportException(const char *func, const char *what) const
@@ -460,21 +431,17 @@ namespace Sapphire
 
         BytecodeResult compile(std::string infix)
         {
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
             try
-#endif
             {
                 auto expr = CalcParseNumericExpression(infix);
                 prog.compile(expr);
                 prog.validate();
                 return BytecodeResult::Success(prog);
             }
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
             catch (const CalcError& ex)
             {
                 return BytecodeResult::Fail(ex.what());
             }
-#endif
         }
 
         double paramValue(int index) const

@@ -122,14 +122,7 @@ namespace Sapphire
                         if (c == '.')
                         {
                             if (++dpcount > 1)
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                                 throw CalcError("Invalid character in expression");
-#else
-							{
-								printf("Invalid character in expression\n");
-								return;
-							}
-#endif
                         }
                         else if (c >= '0' && c <= '9')
                         {
@@ -146,14 +139,7 @@ namespace Sapphire
                         // Exponential notation.
                         tok.push_back(c);
                         if (i >= len)
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                             throw CalcError("Unterminated exponent in numeric literal.");
-#else
-						{
-							printf("Unterminated exponent in numeric literal.\n");
-							return;
-						}
-#endif
                         ++i;
                         c = text[i];
                         if (c == '+' || c == '-')
@@ -162,14 +148,7 @@ namespace Sapphire
                             ++i;
                         }
                         if (i >= len)
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                             throw CalcError("Unterminated exponent in numeric literal.");
-#else
-						{
-                            printf("Unterminated exponent in numeric literal.\n");
-							return;
-						}
-#endif
                         while (i < len)
                         {
                             c = text[i];
@@ -184,14 +163,7 @@ namespace Sapphire
                     // Verify that the token is a valid floating point number.
                     float testValue{};
                     if (1 != sscanf(tok.c_str(), "%g", &testValue))
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
-							throw CalcError("Invalid numeric literal: '" + tok + "'");
-#else
-						{
-                            printf("Invalid numeric literal: %s\n", tok.c_str());
-							return;
-						}
-#endif
+                        throw CalcError("Invalid numeric literal: '" + tok + "'");
 
                     tokens.push_back(CalcToken(tok, front));
                 }
@@ -240,12 +212,7 @@ namespace Sapphire
             auto token = getNextToken();
             if (token)
                 return token;
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
             throw CalcError("Syntax error: unexpected end of input");
-#else
-			printf("Syntax error: unexpected end of input\n");
-			return token;
-#endif
         }
 
         bool nextTokenIs(const char *text) const
@@ -263,17 +230,9 @@ namespace Sapphire
                 if (0 == strcmp(token->text.c_str(), text))
                     return;
 
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw ParseError(std::string("Expected '") + text + std::string("'"), *token);
-#else
-                printf("Expected '%s'\n", text);
-#endif
             }
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
             throw CalcError(std::string("Expected '") + text + std::string("'"));
-#else
-			printf("Expected '%s'\n", text);
-#endif
         }
     };
 
@@ -343,12 +302,7 @@ namespace Sapphire
         {
             if (isVariable() && (token.text.size() == 1))
                 return static_cast<char>(0x7f & static_cast<int>(token.text[0]));
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
             throw CalcError("Invalid variable name: [" + token.text + "]");
-#else
-            printf("Invalid variable name: [%s]\n", token.text.c_str());
-			return 0;
-#endif
         }
     };
 

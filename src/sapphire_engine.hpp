@@ -86,19 +86,11 @@ namespace Sapphire
     inline int MOD(int i, int n)    // Always returns 0..(n-1), even when i<0.
     {
         if (n <= 0)
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
             throw std::out_of_range(std::string("Invalid denominator for MOD: ") + std::to_string(n));
-#else
-		return 0;
-#endif
 
         const int m = ((i%n) + n) % n;
         if (m < 0 || m >= n)
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
             throw std::range_error("MOD internal failure.");
-#else
-		return 0;
-#endif
 
         return m;
     }
@@ -107,19 +99,11 @@ namespace Sapphire
     inline real_t FMOD(real_t x, real_t y)
     {
         if (y <= 0)
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
             throw std::out_of_range(std::string("Invalid denominator for FMOD: ") + std::to_string(y));
-#else
-		return 0;
-#endif
 
         const real_t m = std::fmod(y + std::fmod(x, y), y);
         if (m < 0 || m >= y)
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
             throw std::range_error("FMOD internal failure.");
-#else
-		return 0;
-#endif
 
         return m;
     }
@@ -404,13 +388,8 @@ namespace Sapphire
 
         static double VerifyPositive(double x)
         {
-            if (x <= 0.0) {
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
+            if (x <= 0.0)
                 throw std::range_error("AGC coefficient must be positive.");
-#else
-				return std::numeric_limits<double>::min();
-#endif
-			}
             return x;
         }
 
@@ -497,26 +476,16 @@ namespace Sapphire
         item_t readForward(std::size_t offset) const
         {
             // Access an item at an integer offset toward the future from the back of the delay line.
-            if (offset >= bufsize) {
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
+            if (offset >= bufsize)
                 throw std::range_error("Delay line offset is out of bounds.");
-#else
-				return{};
-#endif
-			}
             return buffer.at((back + offset) % bufsize);
         }
 
         item_t readBackward(std::size_t offset) const
         {
             // Access an item at an integer offset into the past from the front of the delay line.
-            if (offset >= bufsize) {
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
+            if (offset >= bufsize)
                 throw std::range_error("Delay line offset is out of bounds.");
-#else
-				return{};
-#endif
-			}
             return buffer.at(((bufsize + front) - (offset + 1)) % bufsize);
         }
 
@@ -699,22 +668,14 @@ namespace Sapphire
         {
             std::size_t index = static_cast<std::size_t>(static_cast<int>(steps) + position);
             if (index >= nsamples)
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::range_error("Interpolator write position is out of bounds.");
-#else
-			return;
-#endif
             buffer[index] = value;
         }
 
         item_t read(float position) const
         {
             if (position < -1.0f || position > +1.0f)
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::range_error("Interpolator read position is out of bounds.");
-#else
-			return{};
-#endif
 
             const int s = static_cast<int>(steps);
             item_t sum {};

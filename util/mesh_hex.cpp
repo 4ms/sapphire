@@ -23,11 +23,7 @@ namespace Sapphire
         case SPRINGDIR_S:  return SPRINGDIR_N;
         case SPRINGDIR_SE: return SPRINGDIR_NW;
         default:
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
             throw std::out_of_range("dir");
-#else
-			return 0;
-#endif
         }
     }
 
@@ -96,11 +92,7 @@ namespace Sapphire
             int v = f - 2*w + dv;
             const HexGridElement& h = map.at(u, v);
             if (h.ballIndex < 0)
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw std::out_of_range("No ball exists at specified grid coordinates.");
-#else
-			return 0;
-#endif
             return h.ballIndex;
         }
 

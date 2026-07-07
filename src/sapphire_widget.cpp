@@ -716,18 +716,14 @@ namespace Sapphire
                         {
                             if (moduleWidget)
                             {
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                                 try
-#endif
                                 {
                                     moduleWidget->loadAction(path);
                                 }
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                                 catch (Exception& e)
                                 {
                                     WARN("Cannot load preset [%s]: %s", path.c_str(), e.what());
                                 }
-#endif
                             }
                         }
                     ));

@@ -120,22 +120,13 @@ namespace Sapphire
                 return ident;
             }
 
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
             throw ParseError("Syntax error: cannot parse atom", *token);
-#else
-			printf("Syntax error: cannot parse atom");
-			return {};
-#endif
         }
 
         void finalize()
         {
             if (scanner.moreTokensAvailable())
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw ParseError(std::string("Syntax error"), *scanner.peekNextToken());
-#else
-			printf("Syntax error");
-#endif
         }
     };
 

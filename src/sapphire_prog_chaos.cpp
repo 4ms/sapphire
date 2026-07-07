@@ -4,9 +4,7 @@ namespace Sapphire
 {
     void ProgOscillator::updateParameters()
     {
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
         try
-#endif
         {
             // Update the parameters at audio rate.
             // Only one parameter can be varied at a time.
@@ -16,7 +14,6 @@ namespace Sapphire
             for (int p = 0; p < ProgOscillator::ParamCount; ++p)
                 paramValue(p) = (p == mode) ? knobMap[p].paramValue(knob) : knobMap[p].fallbackValue();
         }
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
         catch (const CalcError& ex)
         {
             reportException(__func__, ex.what());
@@ -25,16 +22,13 @@ namespace Sapphire
         {
             reportException(__func__, rx.what());
         }
-#endif
     }
 
 
     SlopeVector ProgOscillator::slopes(double x, double y, double z) const
     {
         SlopeVector vec;
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
         try
-#endif
         {
             if (prog.outputs.size() == 3)
             {
@@ -49,7 +43,6 @@ namespace Sapphire
                 vec.mz = prog.reg[prog.outputs[2]];
             }
         }
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
         catch (const CalcError& ex)
         {
             reportException(__func__, ex.what());
@@ -58,7 +51,6 @@ namespace Sapphire
         {
             reportException(__func__, rx.what());
         }
-#endif
         return vec;
     }
 
@@ -108,15 +100,8 @@ namespace Sapphire
                     }
                     if (expr->isBinary("/"))
                     {
-                        if (rightValue == 0.0) {
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
+                        if (rightValue == 0.0)
                             throw CalcError("Division by zero in constant expression.");
-#else
-							printf("Division by zero in constant expression.");
-							value = 0;
-							return false;
-#endif
-						}
                         value = leftValue / rightValue;
                         return true;
                     }
@@ -126,7 +111,6 @@ namespace Sapphire
                         if (std::isfinite(value))
                             return true;
 
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                         throw CalcError(
                             "Invalid constant exponentiation: (" +
                             std::to_string(leftValue) +
@@ -134,17 +118,6 @@ namespace Sapphire
                             std::to_string(rightValue)
                             + ")"
                         );
-#else
-                        printf("%s\n",
-                            std::string("Invalid constant exponentiation: (" +
-                            std::to_string(leftValue) +
-                            ") ^ (" +
-                            std::to_string(rightValue)
-                            + ")").data()
-                        );
-						value = 0;
-						return false;
-#endif
                     }
                 }
             }
@@ -157,14 +130,8 @@ namespace Sapphire
 
     int BytecodeProgram::gencode(calc_expr_t expr, int depth)
     {
-        if (depth > 100) {
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
+        if (depth > 100)
             throw CalcError("Recursion limit reached while compiling expression.");
-#else
-			printf("Recursion limit reached while compiling expression.");
-			return 0;
-#endif
-		}
 
         // In this virtual machine, there is only one kind of instruction.
         // Every instruction executed has the following effect:
@@ -191,14 +158,8 @@ namespace Sapphire
         if (expr->isVariable())
         {
             char symbol = expr->variableChar();
-            if (isBadVariable(symbol)) {
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
+            if (isBadVariable(symbol))
                 throw CalcError("Bad variable: " + std::string{symbol});
-#else
-                printf("Bad variable: %c\n", symbol);
-				return 0; //TODO: what should we return?
-#endif
-			}
             lowercaseVarsMask |= LowercaseMask(symbol);
             return variableRegister(symbol);
         }
@@ -273,26 +234,15 @@ namespace Sapphire
             {
                 if (double denom{}; isConstantExpression(denom, right))
                 {
-                    if (denom == 0.0) {
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
+                    if (denom == 0.0)
                         throw CalcError("Division by zero detected.");
-#else
-                        printf("Division by zero detected.");
-						return INFINITY;
-#endif
-					}
                     // a/denom ==> (1/denom)*a + 0
                     n = literalRegister(1/denom);
                     z = literalRegister(0);
                     a = gencode(left, 1+depth);
                     return emit(r, n, a, z);
                 }
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                 throw CalcError("Division is not supported except when the denominator is a numeric constant.");
-#else
-				printf("Division is not supported except when the denominator is a numeric constant.");
-				return 0; // TODO: What should we return?
-#endif
             }
             else if (expr->isBinary("^"))
             {
@@ -300,14 +250,8 @@ namespace Sapphire
                 if (double expFloat{}; isConstantExpression(expFloat, right))
                 {
                     const int exponent = static_cast<int>(std::round(expFloat));
-                    if (static_cast<double>(exponent) != expFloat || exponent <= 0) {
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
+                    if (static_cast<double>(exponent) != expFloat || exponent <= 0)
                         throw CalcError("Exponent must be a positive integer, not " + std::to_string(expFloat));
-#else
-                        printf("Exponent must be a positive integer, not %f\n", expFloat);
-						return 0;// TODO: what should we return?
-#endif
-					}
 
                     a = gencode(left, 1+depth);
                     if (exponent == 1)
@@ -363,23 +307,13 @@ namespace Sapphire
                         return r;
 
                     default:
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
                         throw CalcError("Exponent " + std::to_string(exponent) + " is not supported.");
-#else
-						printf("Exponent %d is not supported.\n", exponent);
-						return 0;
-#endif
                     }
                 }
             }
         }
 
-#if defined(__EXCEPTIONS) || defined(__cpp_exceptions) || defined(_CPPUNWIND)
         throw CalcError("Code generation failure");
-#else
-		printf("Code generation failure\n");
-		return 0;
-#endif
     }
 
 

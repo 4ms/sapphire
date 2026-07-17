@@ -4,13 +4,9 @@
 Model *modelSapphireTricorder = nullptr;
 Model *modelSapphireChaops = nullptr;
 
-#ifdef METAMODULE_BUILTIN
-extern Plugin *pluginInstance;
-__attribute__((visibility("default"))) void init_Sapphire(Plugin *p) {
-#else
 Plugin *pluginInstance;
+
 __attribute__((visibility("default"))) void init(Plugin *p) {
-#endif
 	pluginInstance = p;
 
 	p->addModel(modelSapphireElastika);

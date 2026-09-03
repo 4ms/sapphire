@@ -1,9 +1,5 @@
 #include "plugin.hpp"
 
-// Stubs for models that aren't in the MM plugin, but are used in common code
-Model *modelSapphireTricorder = nullptr;
-Model *modelSapphireChaops = nullptr;
-
 Plugin *pluginInstance;
 
 __attribute__((visibility("default"))) void init(Plugin *p) {
@@ -17,6 +13,10 @@ __attribute__((visibility("default"))) void init(Plugin *p) {
 	p->addModel(modelSapphireHiss);
 	p->addModel(modelSapphireLark);
 	p->addModel(modelSapphireZoo);
+	p->addModel(modelSapphireChaops);
+	p->addModel(modelSapphireTin);
+	p->addModel(modelSapphireTout);
+	p->addModel(modelSapphireTricorder);
 	// p->addModel(modelSapphireMoots);
 	// p->addModel(modelSapphireNucleus);
 	// p->addModel(modelSapphirePivot);
@@ -24,9 +24,6 @@ __attribute__((visibility("default"))) void init(Plugin *p) {
 	// p->addModel(modelSapphirePop);
 	// p->addModel(modelSapphireRotini);
 	// p->addModel(modelSapphireSam);
-	// p->addModel(modelSapphireTin);
-	// p->addModel(modelSapphireTout);
-	// p->addModel(modelSapphireTricorder);
 	// p->addModel(modelSapphireTubeUnit);
 }
 

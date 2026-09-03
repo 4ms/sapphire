@@ -29,6 +29,22 @@
 	{
 		"slug": "Hiss",
 		"name": "Hiss"
+	},
+	{
+		"slug": "Chaops",
+		"name": "Chaops"
+	},
+	{
+		"slug": "Tin",
+		"name": "Tin"
+	},
+	{
+		"slug": "Tout",
+		"name": "Tout"
+	},
+	{
+		"slug": "Tricorder",
+		"name": "Tricorder"
 	}
 	]
 }
